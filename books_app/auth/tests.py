@@ -2,7 +2,7 @@ import os
 from unittest import TestCase
 
 from datetime import date
- 
+
 from books_app import app, db, bcrypt
 from books_app.models import Book, Author, User, Audience
 
@@ -15,29 +15,33 @@ python -m unittest books_app.main.tests
 # Setup
 #################################################
 
+
 def create_books():
-    a1 = Author(name='Harper Lee')
+    a1 = Author(name="Harper Lee")
     b1 = Book(
-        title='To Kill a Mockingbird',
+        title="To Kill a Mockingbird",
         publish_date=date(1960, 7, 11),
-        author=a1
+        author=a1,
     )
     db.session.add(b1)
 
-    a2 = Author(name='Sylvia Plath')
-    b2 = Book(title='The Bell Jar', author=a2)
+    a2 = Author(name="Sylvia Plath")
+    b2 = Book(title="The Bell Jar", author=a2)
     db.session.add(b2)
     db.session.commit()
 
+
 def create_user():
-    password_hash = bcrypt.generate_password_hash('password').decode('utf-8')
-    user = User(username='me1', password=password_hash)
+    password_hash = bcrypt.generate_password_hash("password").decode("utf-8")
+    user = User(username="me1", password=password_hash)
     db.session.add(user)
     db.session.commit()
+
 
 #################################################
 # Tests
 #################################################
+
 
 class AuthTests(TestCase):
     """Tests for authentication (login & signup)."""
